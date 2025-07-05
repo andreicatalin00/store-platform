@@ -1,0 +1,55 @@
+# Build output
+/target/
+/build/
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/out/
+
+# Eclipse
+/.classpath
+/.project
+/.settings/
+/bin/
+
+# VS Code
+/.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# SQLite database file (if you don't want to commit it)
+*.db
+
+# Environment
+.env
+*.env
+
+# Maven
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+/logs/
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Temporary files
+*.swp
+*.swo
+
+# Test coverage
+/coverage/
+/jacoco.exec
+
+# Node (if you also have frontend stuff)
+node_modules/
+
+# Generated
+*.class
