@@ -5,7 +5,9 @@ import com.order.store.entity.Order;
 import com.order.store.entity.OutboxEvent;
 import com.order.store.repository.OrderRepository;
 import com.order.store.repository.OutboxEventRepository;
-import java.util.Optional;
+
+import java.util.*;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +28,6 @@ public class OrderController {
   public ResponseEntity<Order> createOrder(
       @RequestHeader(value = "X-Idempotency-Key", required = false) String idempotencyKey,
       @RequestBody OrderRequest orderRequest) {
-
     if (idempotencyKey != null) {
       Optional<Order> existingOrder = orderRepository.findByIdempotencyKey(idempotencyKey);
       if (existingOrder.isPresent()) {

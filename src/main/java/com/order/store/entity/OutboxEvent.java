@@ -22,11 +22,16 @@ public class OutboxEvent {
 
     private LocalDateTime createdAt;
 
-    private String status;
+    private Status status;
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
-        if (status == null) status = "PENDING";
+        if (status == null) status = Status.PENDING;
+    }
+
+    public enum Status{
+        PENDING,
+        COMPLETED
     }
 }
