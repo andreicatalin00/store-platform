@@ -57,3 +57,7 @@ Clean up unused volumes:
 Run bash inside the container:
 
 `docker exec -it <container_name> /bin/bash`
+
+Full cleanup:
+
+`docker compose down -v`
