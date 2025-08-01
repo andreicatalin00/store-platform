@@ -1,8 +1,25 @@
 # store
 
-## TODO: Add Kafka publisher and consumer, use docker compose for the Kafka instantiation 
+## Possible TODO ideas for the project
 
-### Kafka Topic Management
+### Add Payment/Billing service
+Event-driven architecture with loosely coupled services
+Similar to: Uber, Netflix, Amazon
+
+Flow:
+StoreService creates an order and emits an OrderCreated event.
+
+BillingService listens to OrderCreated, attempts payment, emits PaymentSucceeded or PaymentFailed.
+
+StoreService listens to those billing events and updates the order status.
+
+### Add API Gateway
+
+### Start using release notes and working on different branches for new features
+
+
+
+## Kafka Topic Management
 
 _Describe a topic:_
 
