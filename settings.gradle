@@ -1,2 +1,3 @@
 rootProject.name = 'store-platform'
 include 'order'
+include 'payment'
