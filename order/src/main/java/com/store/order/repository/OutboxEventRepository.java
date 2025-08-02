@@ -1,6 +1,6 @@
-package com.order.repository;
+package com.store.order.repository;
 
-import com.order.entity.OutboxEvent;
+import com.store.order.entity.OutboxEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

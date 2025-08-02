@@ -1,4 +1,4 @@
-package com.order.entity;
+package com.store.order.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

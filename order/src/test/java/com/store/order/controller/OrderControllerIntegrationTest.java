@@ -1,11 +1,11 @@
-package com.order.controller;
+package com.store.order.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.order.dto.OrderRequest;
-import com.order.entity.Order;
-import com.order.repository.OrderRepository;
-import com.order.repository.OutboxEventRepository;
+import com.store.order.dto.OrderRequest;
+import com.store.order.entity.Order;
+import com.store.order.repository.OrderRepository;
+import com.store.order.repository.OutboxEventRepository;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

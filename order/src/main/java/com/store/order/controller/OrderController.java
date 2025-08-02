@@ -1,10 +1,10 @@
-package com.order.controller;
+package com.store.order.controller;
 
-import com.order.dto.OrderRequest;
-import com.order.entity.Order;
-import com.order.entity.OutboxEvent;
-import com.order.repository.OrderRepository;
-import com.order.repository.OutboxEventRepository;
+import com.store.order.dto.OrderRequest;
+import com.store.order.entity.Order;
+import com.store.order.entity.OutboxEvent;
+import com.store.order.repository.OrderRepository;
+import com.store.order.repository.OutboxEventRepository;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package com.order.kafka;
+package com.store.order.kafka;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
