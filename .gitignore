@@ -1,6 +1,7 @@
 # Build output
 /target/
 /build/
+**/build/
 
 # IntelliJ IDEA
 /.idea/
@@ -23,7 +24,7 @@ Thumbs.db
 # Logs
 *.log
 
-# SQLite database file (if you don't want to commit it)
+# SQLite database file
 *.db
 
 # Environment
@@ -48,11 +49,8 @@ build/
 /coverage/
 /jacoco.exec
 
-# Node (if you also have frontend stuff)
+# Node
 node_modules/
 
 # Generated
 *.class
-
-# DB
-orders.db
