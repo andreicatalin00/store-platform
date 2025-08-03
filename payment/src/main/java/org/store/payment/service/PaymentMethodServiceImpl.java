@@ -2,9 +2,13 @@ package org.store.payment.service;
 
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import org.store.payment.converter.PaymentMethodConverter;
+import org.store.payment.domain.PaymentMethod;
 import org.store.payment.dto.CreatePaymentMethodRequest;
 import org.store.payment.entity.PaymentMethodEntity;
 import org.store.payment.repository.PaymentMethodRepository;
+
+import static org.store.payment.converter.PaymentMethodConverter.toDomain;
 
 @Service
 public class PaymentMethodServiceImpl implements PaymentMethodService {
@@ -15,7 +19,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
   }
 
   @Override
-  public PaymentMethodEntity create(CreatePaymentMethodRequest createPaymentMethodRequest) {
+  public PaymentMethod create(CreatePaymentMethodRequest createPaymentMethodRequest) {
     final var paymentMethod =
         PaymentMethodEntity.builder()
             .coreUserId(createPaymentMethodRequest.getCoreUserId())
@@ -25,12 +29,13 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
             .cardCVC(createPaymentMethodRequest.getCardCVC())
             .build();
 
-    return repository.save(paymentMethod);
+    final var entityAfterSave = repository.save(paymentMethod);
+    return toDomain(entityAfterSave);
   }
 
   @Override
-  public Optional<PaymentMethodEntity> get(long paymentMethodId) {
-    return repository.findById(paymentMethodId);
+  public Optional<PaymentMethod> get(long paymentMethodId) {
+    return repository.findById(paymentMethodId).map(PaymentMethodConverter::toDomain);
   }
 
   @Override

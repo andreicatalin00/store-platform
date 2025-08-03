@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.store.payment.domain.PaymentMethod;
 import org.store.payment.dto.CreatePaymentMethodRequest;
 import org.store.payment.entity.PaymentMethodEntity;
 import org.store.payment.service.PaymentMethodService;
@@ -19,14 +20,14 @@ public class PaymentMethodController {
     }
 
     @PostMapping
-    public ResponseEntity<PaymentMethodEntity> create(@Valid @RequestBody CreatePaymentMethodRequest request) {
+    public ResponseEntity<PaymentMethod> create(@Valid @RequestBody CreatePaymentMethodRequest request) {
         log.error("abc {}", request);
         final var paymentMethod = paymentMethodService.create(request);
         return ResponseEntity.ok(paymentMethod);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PaymentMethodEntity> get(@PathVariable Long id) {
+    public ResponseEntity<PaymentMethod> get(@PathVariable Long id) {
         return paymentMethodService.get(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
