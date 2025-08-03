@@ -3,14 +3,17 @@ package org.store.payment.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 import org.store.payment.domain.PaymentStatus;
 
 @Entity
 @Table(name = "payment_intents")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentIntentEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
