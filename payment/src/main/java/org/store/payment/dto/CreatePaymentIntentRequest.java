@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class CreatePaymentIntentRequest {
-    Long amount;
-    String currency;
+    private Long amount;
+    private String currency;
 }

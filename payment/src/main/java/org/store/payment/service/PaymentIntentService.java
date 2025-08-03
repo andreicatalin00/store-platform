@@ -17,7 +17,6 @@ public class PaymentIntentService {
     }
 
     public PaymentIntent create(Long amount, String currency) {
-
         PaymentIntent pi = new PaymentIntent();
         pi.setAmount(amount);
         pi.setCurrency(currency);
