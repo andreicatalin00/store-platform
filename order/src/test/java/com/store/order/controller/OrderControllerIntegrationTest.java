@@ -112,7 +112,7 @@ class OrderControllerIntegrationTest {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("X-Idempotency-Key", idempotencyKey);
+    headers.set("Idempotency-Key", idempotencyKey);
 
       return new HttpEntity<>(orderRequest, headers);
   }
