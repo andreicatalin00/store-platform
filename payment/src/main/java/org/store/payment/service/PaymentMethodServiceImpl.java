@@ -3,7 +3,7 @@ package org.store.payment.service;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.store.payment.dto.CreatePaymentMethodRequest;
-import org.store.payment.entity.PaymentMethod;
+import org.store.payment.entity.PaymentMethodEntity;
 import org.store.payment.repository.PaymentMethodRepository;
 
 @Service
@@ -15,9 +15,9 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
   }
 
   @Override
-  public PaymentMethod create(CreatePaymentMethodRequest createPaymentMethodRequest) {
+  public PaymentMethodEntity create(CreatePaymentMethodRequest createPaymentMethodRequest) {
     final var paymentMethod =
-        PaymentMethod.builder()
+        PaymentMethodEntity.builder()
             .coreUserId(createPaymentMethodRequest.getCoreUserId())
             .cardNumber(createPaymentMethodRequest.getCardNumber())
             .cardExpirationMonth(createPaymentMethodRequest.getCardExpirationMonth())
@@ -29,7 +29,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
   }
 
   @Override
-  public Optional<PaymentMethod> get(long paymentMethodId) {
+  public Optional<PaymentMethodEntity> get(long paymentMethodId) {
     return repository.findById(paymentMethodId);
   }
 

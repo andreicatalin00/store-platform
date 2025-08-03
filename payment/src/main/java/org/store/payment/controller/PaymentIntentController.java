@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.store.payment.dto.ConfirmPaymentIntentRequest;
 import org.store.payment.dto.CreatePaymentIntentRequest;
-import org.store.payment.entity.PaymentIntent;
+import org.store.payment.entity.PaymentIntentEntity;
 import org.store.payment.service.PaymentIntentService;
 
 @RestController
@@ -18,18 +18,18 @@ public class PaymentIntentController {
     }
 
     @PostMapping
-    public ResponseEntity<PaymentIntent> create(@Valid @RequestBody CreatePaymentIntentRequest request) {
+    public ResponseEntity<PaymentIntentEntity> create(@Valid @RequestBody CreatePaymentIntentRequest request) {
         final var paymentIntent = paymentIntentService.create(request.getAmount(), request.getCurrency());
         return ResponseEntity.ok(paymentIntent);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PaymentIntent> get(@PathVariable Long id) {
+    public ResponseEntity<PaymentIntentEntity> get(@PathVariable Long id) {
         return paymentIntentService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/{id}/confirm")
-    public ResponseEntity<PaymentIntent> confirm(@PathVariable Long id, @Valid @RequestBody ConfirmPaymentIntentRequest request) {
+    public ResponseEntity<PaymentIntentEntity> confirm(@PathVariable Long id, @Valid @RequestBody ConfirmPaymentIntentRequest request) {
     return paymentIntentService
         .confirm(id, request.getPaymentMethodId())
         .map(ResponseEntity::ok)
@@ -37,7 +37,7 @@ public class PaymentIntentController {
     }
 
     @PostMapping("/{id}/cancel")
-    public ResponseEntity<PaymentIntent> cancel(@PathVariable Long id) {
+    public ResponseEntity<PaymentIntentEntity> cancel(@PathVariable Long id) {
         return paymentIntentService.cancel(id).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
     }
 }

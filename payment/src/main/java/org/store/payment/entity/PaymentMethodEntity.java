@@ -3,24 +3,31 @@ package org.store.payment.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import org.store.payment.domain.PaymentStatus;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "payment_intents")
 @Getter
-@Setter
-public class PaymentIntent {
+@Builder
+@Entity
+@Table(name = "payment_methods")
+@NoArgsConstructor
+@AllArgsConstructor
+public class PaymentMethodEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Long amount;
-  private String currency;
+  private String coreUserId;
 
-  @Enumerated(EnumType.STRING)
-  private PaymentStatus status;
+  private String cardNumber;
+
+  private int cardExpirationMonth;
+
+  private int cardExpirationYear;
+
+  private int cardCVC;
 
   private LocalDateTime createdAt;
 

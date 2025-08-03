@@ -12,12 +12,12 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.store.payment.dto.CreatePaymentMethodRequest;
-import org.store.payment.entity.PaymentMethod;
+import org.store.payment.entity.PaymentMethodEntity;
 import org.store.payment.repository.PaymentMethodRepository;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PaymentMethodControllerIntegrationTest {
+class PaymentMethodEntityControllerIntegrationTest {
 
     @LocalServerPort
     private int port;
@@ -33,11 +33,11 @@ class PaymentMethodControllerIntegrationTest {
         CreatePaymentMethodRequest request = new CreatePaymentMethodRequest(
                 "user-123", "4111111111111111", 12, 2030, 123);
 
-        ResponseEntity<PaymentMethod> response = restTemplate.postForEntity(
-                baseUrl(), new HttpEntity<>(request, defaultHeaders()), PaymentMethod.class);
+        ResponseEntity<PaymentMethodEntity> response = restTemplate.postForEntity(
+                baseUrl(), new HttpEntity<>(request, defaultHeaders()), PaymentMethodEntity.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        PaymentMethod created = response.getBody();
+        PaymentMethodEntity created = response.getBody();
 
         assertThat(created).isNotNull();
         assertThat(created.getCoreUserId()).isEqualTo("user-123");
@@ -46,7 +46,7 @@ class PaymentMethodControllerIntegrationTest {
 
     @Test
     void get_returnsPaymentMethod() {
-        PaymentMethod saved = PaymentMethod.builder()
+        PaymentMethodEntity saved = PaymentMethodEntity.builder()
                 .coreUserId("user-456")
                 .cardNumber("4111111111111111")
                 .cardExpirationMonth(6)
@@ -56,8 +56,8 @@ class PaymentMethodControllerIntegrationTest {
 
         saved = paymentMethodRepository.save(saved);
 
-        ResponseEntity<PaymentMethod> response = restTemplate.getForEntity(
-                baseUrl() + "/" + saved.getId(), PaymentMethod.class);
+        ResponseEntity<PaymentMethodEntity> response = restTemplate.getForEntity(
+                baseUrl() + "/" + saved.getId(), PaymentMethodEntity.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
@@ -66,15 +66,15 @@ class PaymentMethodControllerIntegrationTest {
 
     @Test
     void get_notFound() {
-        ResponseEntity<PaymentMethod> response = restTemplate.getForEntity(
-                baseUrl() + "/999999", PaymentMethod.class);
+        ResponseEntity<PaymentMethodEntity> response = restTemplate.getForEntity(
+                baseUrl() + "/999999", PaymentMethodEntity.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
     void delete_removesPaymentMethod() {
-        PaymentMethod saved = PaymentMethod.builder()
+        PaymentMethodEntity saved = PaymentMethodEntity.builder()
                 .coreUserId("user-789")
                 .cardNumber("4000000000000002")
                 .cardExpirationMonth(10)

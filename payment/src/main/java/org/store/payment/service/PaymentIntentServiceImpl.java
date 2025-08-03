@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.store.payment.domain.PaymentStatus;
-import org.store.payment.entity.PaymentIntent;
+import org.store.payment.entity.PaymentIntentEntity;
 import org.store.payment.repository.PaymentIntentRepository;
 import org.store.payment.repository.PaymentMethodRepository;
 
@@ -20,8 +20,8 @@ public class PaymentIntentServiceImpl implements PaymentIntentService{
     this.paymentMethodRepository = paymentMethodRepository;
   }
 
-  public PaymentIntent create(Long amount, String currency) {
-    PaymentIntent pi = new PaymentIntent();
+  public PaymentIntentEntity create(Long amount, String currency) {
+    PaymentIntentEntity pi = new PaymentIntentEntity();
     pi.setAmount(amount);
     pi.setCurrency(currency);
     pi.setStatus(PaymentStatus.CREATED);
@@ -30,11 +30,11 @@ public class PaymentIntentServiceImpl implements PaymentIntentService{
     return paymentIntentRepository.save(pi);
   }
 
-  public Optional<PaymentIntent> findById(Long id) {
+  public Optional<PaymentIntentEntity> findById(Long id) {
     return paymentIntentRepository.findById(id);
   }
 
-  public Optional<PaymentIntent> confirm(Long id, Long paymentMethodId) {
+  public Optional<PaymentIntentEntity> confirm(Long id, Long paymentMethodId) {
     final var paymentIntentOptional = paymentIntentRepository.findById(id);
     return paymentIntentOptional
         .map(
@@ -55,7 +55,7 @@ public class PaymentIntentServiceImpl implements PaymentIntentService{
         .map(paymentIntentRepository::save);
   }
 
-  public Optional<PaymentIntent> cancel(Long id) {
+  public Optional<PaymentIntentEntity> cancel(Long id) {
     final var paymentIntentOptional = paymentIntentRepository.findById(id);
     return paymentIntentOptional
         .map(
