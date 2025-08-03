@@ -26,7 +26,7 @@ public class OrderController {
   @PostMapping
   @Transactional
   public ResponseEntity<Order> createOrder(
-      @RequestHeader(value = "X-Idempotency-Key", required = false) String idempotencyKey,
+      @RequestHeader(value = "Idempotency-Key", required = false) String idempotencyKey,
       @RequestBody OrderRequest orderRequest) {
     if (idempotencyKey != null) {
       Optional<Order> existingOrder = orderRepository.findByIdempotencyKey(idempotencyKey);
