@@ -27,7 +27,7 @@ public class PaymentMethodController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PaymentMethod> get(@PathVariable Long id) {
-        return paymentMethodService.get(id).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
+        return paymentMethodService.get(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
