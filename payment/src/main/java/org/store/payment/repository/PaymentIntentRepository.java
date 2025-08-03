@@ -1,0 +1,6 @@
+package org.store.payment.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.store.payment.entity.PaymentIntent;
+
+public interface PaymentIntentRepository extends JpaRepository<PaymentIntent, Long> {}
