@@ -11,10 +11,10 @@ import org.store.payment.service.PaymentIntentService;
 @RestController
 @RequestMapping("/payment_intents")
 public class PaymentIntentController {
-    private final PaymentIntentService service;
+    private final PaymentIntentService paymentIntentService;
 
-    public PaymentIntentController(PaymentIntentService service) {
-        this.service = service;
+    public PaymentIntentController(PaymentIntentService paymentIntentService) {
+        this.paymentIntentService = paymentIntentService;
     }
 
     @PostMapping
@@ -29,18 +29,18 @@ public class PaymentIntentController {
             return ResponseEntity.badRequest().build();
         }
 
-        final var paymentIntent = service.create(request.getAmount(), request.getCurrency());
+        final var paymentIntent = paymentIntentService.create(request.getAmount(), request.getCurrency());
         return ResponseEntity.ok(paymentIntent);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PaymentIntent> get(@PathVariable Long id) {
-        return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
+        return paymentIntentService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/{id}/confirm")
     public ResponseEntity<PaymentIntent> confirm(@PathVariable Long id, @Valid @RequestBody ConfirmPaymentIntentRequest request) {
-    return service
+    return paymentIntentService
         .confirm(id, request.getPaymentMethodId())
         .map(ResponseEntity::ok)
         .orElse(ResponseEntity.badRequest().build());
@@ -48,6 +48,6 @@ public class PaymentIntentController {
 
     @PostMapping("/{id}/cancel")
     public ResponseEntity<PaymentIntent> cancel(@PathVariable Long id) {
-        return service.cancel(id).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
+        return paymentIntentService.cancel(id).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
     }
 }
