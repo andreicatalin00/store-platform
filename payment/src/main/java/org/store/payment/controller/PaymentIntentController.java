@@ -18,17 +18,7 @@ public class PaymentIntentController {
     }
 
     @PostMapping
-    public ResponseEntity<PaymentIntent> create(@RequestBody CreatePaymentIntentRequest request) {
-        if(request == null){
-            return ResponseEntity.badRequest().build();
-        }
-        if(request.getAmount() == null){
-            return ResponseEntity.badRequest().build();
-        }
-        if(request.getCurrency() == null){
-            return ResponseEntity.badRequest().build();
-        }
-
+    public ResponseEntity<PaymentIntent> create(@Valid @RequestBody CreatePaymentIntentRequest request) {
         final var paymentIntent = paymentIntentService.create(request.getAmount(), request.getCurrency());
         return ResponseEntity.ok(paymentIntent);
     }
