@@ -1,7 +1,9 @@
 package org.store.payment.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.store.payment.dto.ConfirmPaymentIntentRequest;
 import org.store.payment.dto.CreatePaymentIntentRequest;
 import org.store.payment.entity.PaymentIntent;
 import org.store.payment.service.PaymentIntentService;
@@ -37,8 +39,11 @@ public class PaymentIntentController {
     }
 
     @PostMapping("/{id}/confirm")
-    public ResponseEntity<PaymentIntent> confirm(@PathVariable Long id) {
-        return service.confirm(id).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
+    public ResponseEntity<PaymentIntent> confirm(@PathVariable Long id, @Valid @RequestBody ConfirmPaymentIntentRequest request) {
+    return service
+        .confirm(id, request.getPaymentMethodId())
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/{id}/cancel")
