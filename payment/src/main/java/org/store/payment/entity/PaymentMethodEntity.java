@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.store.payment.domain.PaymentMethodType;
 
 @Getter
 @Builder
@@ -30,6 +31,11 @@ public class PaymentMethodEntity {
   private int cardCVC;
 
   private LocalDateTime createdAt;
+
+  @Enumerated(EnumType.STRING)
+  private PaymentMethodType type;
+
+  private String applePayToken;
 
   @Column(unique = true)
   private String idempotencyKey;

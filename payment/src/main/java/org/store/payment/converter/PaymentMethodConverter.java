@@ -18,6 +18,8 @@ public class PaymentMethodConverter {
         .cardExpirationMonth(entity.getCardExpirationMonth())
         .cardExpirationYear(entity.getCardExpirationYear())
         .cardCVC(entity.getCardCVC())
+        .type(entity.getType())
+        .applePayToken(entity.getApplePayToken())
         .build();
   }
 
@@ -30,6 +32,8 @@ public class PaymentMethodConverter {
         .cardExpirationMonth(domain.getCardExpirationMonth())
         .cardExpirationYear(domain.getCardExpirationYear())
         .cardCVC(domain.getCardCVC())
+        .type(domain.getType())
+        .applePayToken(domain.getApplePayToken())
         .build();
   }
 }

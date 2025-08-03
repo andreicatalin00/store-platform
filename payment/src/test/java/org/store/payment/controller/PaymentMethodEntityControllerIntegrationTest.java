@@ -11,6 +11,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
+import org.store.payment.domain.PaymentMethodType;
 import org.store.payment.dto.CreatePaymentMethodRequest;
 import org.store.payment.entity.PaymentMethodEntity;
 import org.store.payment.repository.PaymentMethodRepository;
@@ -31,7 +32,7 @@ class PaymentMethodEntityControllerIntegrationTest {
     @Test
     void create_createsPaymentMethod() {
         CreatePaymentMethodRequest request = new CreatePaymentMethodRequest(
-                "user-123", "4111111111111111", 12, 2030, 123);
+                "user-123", PaymentMethodType.CARD,"4111111111111111", 12, 2030, 123, null);
 
         ResponseEntity<PaymentMethodEntity> response = restTemplate.postForEntity(
                 baseUrl(), new HttpEntity<>(request, defaultHeaders()), PaymentMethodEntity.class);
@@ -94,7 +95,7 @@ class PaymentMethodEntityControllerIntegrationTest {
     @Test
     void create_missingCoreUserId_returnsBadRequest() {
         CreatePaymentMethodRequest request = new CreatePaymentMethodRequest(
-                null, "4111111111111111", 12, 2030, 123);
+                null, PaymentMethodType.CARD,"4111111111111111", 12, 2030, 123, null);
 
         ResponseEntity<String> response = restTemplate.postForEntity(
                 baseUrl(), new HttpEntity<>(request, defaultHeaders()), String.class);
@@ -103,31 +104,9 @@ class PaymentMethodEntityControllerIntegrationTest {
     }
 
     @Test
-    void create_missingCardNumber_returnsBadRequest() {
+    void create_missingType_returnsBadRequest() {
         CreatePaymentMethodRequest request = new CreatePaymentMethodRequest(
-                "user-1", null, 12, 2030, 123);
-
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                baseUrl(), new HttpEntity<>(request, defaultHeaders()), String.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-    }
-
-    @Test
-    void create_missingExpirationMonth_returnsBadRequest() {
-        CreatePaymentMethodRequest request = new CreatePaymentMethodRequest(
-                "user-2", "4111111111111111", null, 2030, 123); // month out of range
-
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                baseUrl(), new HttpEntity<>(request, defaultHeaders()), String.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-    }
-
-    @Test
-    void create_missingCardCVC_returnsBadRequest() {
-        CreatePaymentMethodRequest request = new CreatePaymentMethodRequest(
-                "user-3", "4111111111111111", 5, 2030, null);
+                "123", null,"4111111111111111", 12, 2030, 123, null);
 
         ResponseEntity<String> response = restTemplate.postForEntity(
                 baseUrl(), new HttpEntity<>(request, defaultHeaders()), String.class);

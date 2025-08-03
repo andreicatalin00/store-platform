@@ -1,5 +1,7 @@
 package org.store.payment.service;
 
+import static org.store.payment.converter.PaymentMethodConverter.toDomain;
+
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.store.payment.converter.PaymentMethodConverter;
@@ -7,8 +9,6 @@ import org.store.payment.domain.PaymentMethod;
 import org.store.payment.dto.CreatePaymentMethodRequest;
 import org.store.payment.entity.PaymentMethodEntity;
 import org.store.payment.repository.PaymentMethodRepository;
-
-import static org.store.payment.converter.PaymentMethodConverter.toDomain;
 
 @Service
 public class PaymentMethodServiceImpl implements PaymentMethodService {
@@ -27,6 +27,8 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
             .cardExpirationMonth(createPaymentMethodRequest.getCardExpirationMonth())
             .cardExpirationYear(createPaymentMethodRequest.getCardExpirationYear())
             .cardCVC(createPaymentMethodRequest.getCardCVC())
+            .applePayToken(createPaymentMethodRequest.getApplePayToken())
+            .type(createPaymentMethodRequest.getType())
             .build();
 
     final var entityAfterSave = repository.save(paymentMethod);
@@ -40,6 +42,6 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 
   @Override
   public void delete(long paymentMethodId) {
-      repository.deleteById(paymentMethodId);
+    repository.deleteById(paymentMethodId);
   }
 }

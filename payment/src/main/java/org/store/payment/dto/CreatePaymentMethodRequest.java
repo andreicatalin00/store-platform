@@ -4,23 +4,23 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.store.payment.domain.PaymentMethodType;
 
 @AllArgsConstructor
 @Getter
 public class CreatePaymentMethodRequest {
     @NotBlank
     private String coreUserId;
+    @NotNull
+    private PaymentMethodType type;
 
-    @NotBlank
     private String cardNumber;
-
-    @NotNull
     private Integer cardExpirationMonth;
-
-    @NotNull
     private Integer cardExpirationYear;
-
-    @NotNull
     private Integer cardCVC;
+
+    private String applePayToken;
+
+
 
 }

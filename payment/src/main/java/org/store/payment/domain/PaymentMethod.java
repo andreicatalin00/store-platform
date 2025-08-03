@@ -23,7 +23,11 @@ public class PaymentMethod {
 
   private int cardCVC;
 
+  private String applePayToken;
+
   private LocalDateTime createdAt;
 
   private String idempotencyKey;
+
+  private PaymentMethodType type;
 }
