@@ -1,9 +1,7 @@
 package org.store.payment.service;
 
 import java.util.Optional;
-
 import org.store.payment.domain.PaymentIntent;
-import org.store.payment.entity.PaymentIntentEntity;
 
 public interface PaymentIntentService {
   PaymentIntent create(Long amount, String currency);
